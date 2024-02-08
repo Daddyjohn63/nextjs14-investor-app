@@ -1,6 +1,10 @@
 'use client';
 
 import { UserButton } from '@clerk/nextjs';
+import { usePathname } from 'next/navigation';
+import { Button } from './ui/button';
+import { LogOut } from 'lucide-react';
+import Link from 'next/link';
 // import { usePathname } from 'next/navigation';
 // import { LogOut } from 'lucide-react';
 // import Link from 'next/link';
@@ -12,7 +16,10 @@ import { UserButton } from '@clerk/nextjs';
 
 export const NavbarRoutes = () => {
   // const { userId } = useAuth();
-  // const pathname = usePathname();
+  const pathname = usePathname();
+
+  const isEditPage = pathname?.startsWith('/edit');
+  const isViewPage = pathname?.startsWith('/view');
 
   // const isTeacherPage = pathname?.startsWith('/teacher');
   // const isCoursePage = pathname?.includes('/courses');
@@ -20,7 +27,21 @@ export const NavbarRoutes = () => {
 
   return (
     <div className="flex gap-x-2 ml-auto">
-      <UserButton />
+      {isEditPage || isViewPage ? (
+        <Link href="/">
+          <Button size="sm" variant="ghost">
+            <LogOut className="h-4 w-4 mr-2" />
+            Exit
+          </Button>
+        </Link>
+      ) : (
+        <Link href="/edit/create-company">
+          <Button size="sm" variant="ghost">
+            Edit mode
+          </Button>
+        </Link>
+      )}
+      <UserButton afterSignOutUrl="/" />
     </div>
   );
 };
