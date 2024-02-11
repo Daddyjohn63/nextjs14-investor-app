@@ -17,8 +17,8 @@ import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 const formSchema = Z.object({
-  title: Z.string().min(1, {
-    message: 'Title is Required'
+  companyname: Z.string().min(1, {
+    message: 'Company Name is Required'
   })
 });
 
@@ -27,7 +27,7 @@ const createCompanyPage = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: ''
+      companyname: ''
     }
   });
   //extract the state from the form
@@ -35,8 +35,9 @@ const createCompanyPage = () => {
 
   const onSubmit = async values => {
     try {
-      const response = await axios.post('/api/company', values);
-      router.push(`/edit/companies/${response.data.id}`);
+      const response = await axios.post('/api/companies', values);
+      router.push(`/edit/create-company/${response.data.id}`);
+      toast.success('Course created');
     } catch {
       toast.error('Sorry, but something went wrong');
     }

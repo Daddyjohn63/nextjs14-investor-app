@@ -14,6 +14,12 @@ import Link from 'next/link';
 
 // import { SearchInput } from './search-input';
 
+/**
+ * Component which renders a button to select
+ * which nav routes we want edit or view
+ * sits in components\navbar-routes.jsx
+ * @returns
+ */
 export const NavbarRoutes = () => {
   // const { userId } = useAuth();
   const pathname = usePathname();
