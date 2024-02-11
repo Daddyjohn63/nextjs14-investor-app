@@ -8,8 +8,8 @@ export const SidebarItem = ({ icon: Icon, label, href }) => {
   const pathname = usePathname();
   const router = useRouter();
 
-  console.log('PATHNAME:', pathname);
-  console.log('HREF:', href);
+  // console.log('PATHNAME:', pathname);
+  // console.log('HREF:', href);
 
   const isActive = (pathname === '/' && href === '/') || pathname === href || pathname?.startsWith(`${href}/`);
 
