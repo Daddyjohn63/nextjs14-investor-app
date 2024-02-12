@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs';
 import { LayoutDashboard } from 'lucide-react';
 import { redirect } from 'next/navigation';
+import { Titleform } from './_components/title-form';
 
 const CompanyIdPage = async ({ params }) => {
   const { userId } = auth();
@@ -45,6 +46,7 @@ const CompanyIdPage = async ({ params }) => {
             <IconBadge icon={LayoutDashboard} />
             <h2 className="text-xl">Create the company</h2>
           </div>
+          <Titleform initialData={company} companyId={company.id} />
         </div>
       </div>
     </div>
