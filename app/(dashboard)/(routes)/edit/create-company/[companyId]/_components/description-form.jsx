@@ -10,16 +10,17 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
-  companyname: z.string().min(1, {
-    message: 'Company name is required'
+  description: z.string().min(1, {
+    message: 'Description is required'
   })
 });
 
-export const Titleform = ({ initialData, companyId }) => {
+export const Descriptionform = ({ initialData, companyId }) => {
   // Define useForm here where initialData is accessible
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -39,11 +40,11 @@ export const Titleform = ({ initialData, companyId }) => {
   const onSubmit = async values => {
     try {
       await axios.patch(`/api/companies/${companyId}`, values);
-      toast.success('Company updated');
+      toast.success('Description updated');
       toggleEdit();
       router.refresh();
     } catch (error) {
-      console.error('Error updating company:', error.response?.data || error.message);
+      console.error('Error updating description:', error.response?.data || error.message);
       toast.error('Something went wrong');
     }
   };
@@ -51,29 +52,33 @@ export const Titleform = ({ initialData, companyId }) => {
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Company name
+        Description
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
             <>Cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Edit company name
+              Edit description
             </>
           )}
         </Button>
       </div>
-      {!isEditing && <p className="text-sm mt-2">{initialData.companyname}</p>}
+      {!isEditing && (
+        <p className={cn('text-sm mt-2', !initialData.description && 'text-slate-500 italic')}>
+          {initialData.description || 'No description'}
+        </p>
+      )}
       {isEditing && (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 mt-43">
             <FormField
               control={form.control}
-              name="companyname"
+              name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input disabled={isSubmitting} placeholder="e.g. Company Ltd" {...field} />
+                    <Textarea disabled={isSubmitting} placeholder="e.g. This company makes cars.." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

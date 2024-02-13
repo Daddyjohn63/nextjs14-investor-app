@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { auth } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
 export async function PATCH(req, { params }) {
@@ -20,6 +21,7 @@ export async function PATCH(req, { params }) {
         ...values
       }
     });
+    console.log('[COMPANY FROM api route]', company);
 
     return NextResponse.json(company);
   } catch (error) {
