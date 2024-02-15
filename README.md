@@ -1,3 +1,6 @@
+//this is the first stage of the app . Only view branched up to the description-form. The rest is corrupt. V2 of this app is not in the repo which covers the rest of the build.
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
